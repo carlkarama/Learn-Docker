@@ -27,16 +27,38 @@ Docker allows you to handle these highlighted problems above by easily packaging
 ## Containers vs Virtual Machine
 
 | Container                               | Virtual Machine                                             |
-| :-------------------------------------- | :---------------------------------------------------------- | --- |
+| :-------------------------------------- | :---------------------------------------------------------- |
 | An isolated environment to run hardware | A virtual machine is an abstraction of a real world machine |
 | Lightweight i.e. Don't need a full OS   | Heavy                                                       |
-| All containers share the OS of the host |                                                             |
-| Starts quickly                          |                                                             |     |
+| All containers share the OS of the host | Runs on virtual environments of the hardware                |
+| Starts quickly                          | Starts slow                                                 |
 
 ### Steps
 
-1. Tell docker to bring up your application and Docker will automatically download and run the dependencies required in an isolated environment called a container using `docker-compose up`.
-2.
+1. Begin by downloading the docker desktop app
+2. Create a docker file with no extension
+3. Tell docker which base image to run app on
+4. Tell docker to package up our application `docker build -t <tagname> <directory where docker can find docker file>` e.g docker build -t hello-world .
+
+### Syntax Example
+
+``
+//
+//we start from a base image published on Docker Hub i.e node is built on top of a linux image & alpine is the
+//distribution flavour of linux.
+FROM node:alpine
+
+//We need to copy all our program files from the source which in our case is the current directory e.g. (.) into ///the destination directory (/app) which is the image's filesystem.
+//
+COPY . /app
+
+//
+WORKDIR /app
+
+// Use the command (CMD) to execute the app. Since the file we want to execute is in the /app directory
+// we have to prefix it with a directory name e.g. (/app/app.js). Since this is a longer way of doing it
+// we can use the above command to assume we are already within /app directory
+CMD node app.js
 
 ### Resources
 
